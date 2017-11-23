@@ -23,11 +23,19 @@
 
       return navigator.bluetooth.requestDevice({
         filters:[{
-          services:[this.serviceUUID],
+          services:[0xFEAA],
         }]
-      }).then(device => device.gatt.connect())
-      .then(server => server.getPrimaryService(this.serviceUUID))
+      }).then(device => {
+        this.device = device
+        console.log(device)
+        return device.gatt.connect()
+      })
+      .then(server => {
+        console.log(server)
+        return server.getPrimaryService(this.serviceUUID)
+      })
       .then(service => {
+        console.log(service)
         return Promise.all([
           this._cacheCharacteristic(service, this.buzzerUUID),
         ]);
@@ -37,6 +45,7 @@
   _cacheCharacteristic(service, characteristicUuid){
     return service.getCharacteristic(characteristicUuid)
     .then(characteristic => {
+      console.log(characteristic)
       this._characteristics.set(characteristicUuid, characteristic).then(console.log('cache: '  + characteristicUuid));
     });
   }
