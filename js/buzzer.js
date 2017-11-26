@@ -8,7 +8,7 @@
     **********************************************************************/
     
     constructor() {
-      this.eddystoneServiceUuid = 0xFEAA;
+      this.deviceName = "Buzzer";
       this.buzzerServiceUuid = '917649a3-d98e-11e5-9eec-0002a5d5c51b';
       this.buzzerCharacteristicUuid = '917649a4-d98e-11e5-9eec-0002a5d5c51b';
       this.buzzerCharacteristic = null;
@@ -16,16 +16,13 @@
 
     connect(){
       return navigator.bluetooth.requestDevice({
-        filters:[{
-          services:[this.eddystoneServiceUuid],
-        }]
+        filters:[{name: this.deviceName,}],
+        optionalServices: [this.buzzerServiceUuid]
       }).then(device => {
-        this.device = device
         console.log(device)
         return device.gatt.connect()
       })
       .then(server => {
-        this.server = server
         console.log(server)
         return server.getPrimaryService(this.buzzerServiceUuid)
       })
