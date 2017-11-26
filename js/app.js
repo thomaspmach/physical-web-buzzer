@@ -4,18 +4,12 @@ var buzzerButton = function()
 {
   buzzerON = !buzzerON;
   if (buzzerON) {
-   $("#buzzer-button-text").html("OFF");
-   buzzer._writeCharacteristic(buzzer.buzzerUUID, new Uint8Array([1]))
-   .then(() => console.log('wrote 1'))
-   .catch(error => {console.log('write error');
-   });
+    $("#buzzer-button-text").html("OFF");
+    bleDevice.writeBuzzerCharacteristic(new Uint8Array([1]))
   }
   else {
     $("#buzzer-button-text").html("ON");
-    buzzer._writeCharacteristic(buzzer.buzzerUUID, new Uint8Array([0]))
-   .then(() => console.log('wrote 0'))
-   .catch(error => {console.log('write error');
-   });
+    bleDevice.writeBuzzerCharacteristic(new Uint8Array([0]))
   }
   console.log(buzzerON);
 };
@@ -25,9 +19,7 @@ var buzzerButton = function()
   * initiate a connection.
   */
 function bleConnect() {
-  buzzer.connect()
-      .then(() => console.log('connected'))
-      .catch(error => { console.log('connect error!'); });
+  bleDevice.connect()
 };
 
 
