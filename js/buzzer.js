@@ -6,9 +6,9 @@
     /**********************************************************************
     * The BleDevice class is a object used to represent the BLE peripheral.
     **********************************************************************/
-    
+
     constructor() {
-      this.deviceName = "Buzzer";
+      this.deviceName = "buzzer";
       this.buzzerServiceUuid = '917649a3-d98e-11e5-9eec-0002a5d5c51b';
       this.buzzerCharacteristicUuid = '917649a4-d98e-11e5-9eec-0002a5d5c51b';
       this.buzzerCharacteristic = null;
